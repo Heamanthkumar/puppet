@@ -3,7 +3,7 @@
 :backends:
 - 'yaml'
 :yaml:
-  :datadir: 'yaml'
+  :datadir: '/etc/puppet/yaml'
 :hierarchy:
 - 'secrets/%{::type}'
 - 'secrets/common'

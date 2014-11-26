@@ -22,7 +22,9 @@ n=1
 /usr/bin/git clone https://github.com/relud/puppet-demo /etc/puppet
 
 # install dependency modules
-/usr/local/bin/hiera -c /etc/puppet/hiera.yaml -a modules |
+/usr/local/bin/facter -p -j |
+    /bin/sed 's/^  "/  "::/' |
+    /usr/local/bin/hiera -c /etc/puppet/hiera.yaml --yaml /dev/stdin -a modules |
     /usr/bin/jq '.[]' |
     /usr/bin/xargs -n1 echo /usr/local/bin/puppet module install --force |
     /bin/bash

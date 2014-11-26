@@ -1,0 +1,6 @@
+/yaml/secrets
+/modules/stdlib
+/modules/nginx
+/modules/concat
+*.swo
+*.swp

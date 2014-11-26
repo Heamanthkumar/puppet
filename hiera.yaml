@@ -1,0 +1,11 @@
+# /etc/puppet/hiera.yaml
+---
+:backends:
+- 'yaml'
+:yaml:
+  :datadir: 'yaml'
+:hierarchy:
+- 'secrets/%{::type}'
+- 'secrets/common'
+- '%{::type}'
+- 'common'

@@ -1,0 +1,4 @@
+modules:
+- puppetlabs-stdlib
+- puppetlabs-concat -v 1.1.1
+webapp::common_public: "What's up"

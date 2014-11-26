@@ -9,7 +9,7 @@ n=1
 
 # classify this node as a webapp
 /bin/mkdir -p /etc/facter/facts.d
-/bin/echo 'type=webapp' > /etc/facter/facts.d/classify
+/bin/echo 'type=webapp' > /etc/facter/facts.d/classify.txt
 
 # install secrets
 /bin/mkdir -p /etc/puppet/yaml/secrets

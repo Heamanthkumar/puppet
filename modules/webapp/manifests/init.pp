@@ -6,10 +6,10 @@ class webapp (
   $webapp_secret = 'to be eaten by a grue.',
 ) {
   $demo_text = [
-    $common_secret,
     $common_public,
-    $webapp_secret,
+    $common_secret,
     $webapp_public,
+    $webapp_secret,
   ]
 
   file { '/var/www/':

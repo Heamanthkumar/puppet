@@ -1,5 +1,0 @@
-classes:
-- webapp
-modules:
-- jfryman-nginx -v 0.2.0
-webapp::webapp_public: "Be very, very quiet"

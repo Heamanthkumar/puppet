@@ -1,5 +1,13 @@
 #!/bin/bash
-n=1
+
+function hiera_array() {
+    key="$1"
+
+    /usr/local/bin/facter -p -j |
+        /bin/sed 's/^  "/  "::/' |
+        /usr/local/bin/hiera -c /etc/puppet/hiera.yaml --yaml /dev/stdin -a $key |
+        /usr/bin/jq '.[]'
+}
 
 # install dependencies
 /usr/bin/yum install git -y
@@ -16,18 +24,12 @@ n=1
 
 # install secrets
 /bin/mkdir -p /etc/puppet/yaml/secrets
-/bin/touch /etc/puppet/yaml/secrets/common.yaml /etc/puppet/yaml/secrets/webapp.yaml
-/bin/chmod 0600 -R /etc/puppet/yaml/secrets
-/usr/bin/aws s3 cp s3://relud-demo-$n/common.yaml /etc/puppet/yaml/secrets/common.yaml
-/usr/bin/aws s3 cp s3://relud-demo-$n/webapp.yaml /etc/puppet/yaml/secrets/webapp.yaml
+/usr/bin/aws s3 cp s3://relud-demo-1/secrets.yaml /etc/puppet/secrets/secrets.yaml
 
-# install dependency modules
-/usr/local/bin/facter -p -j |
-    /bin/sed 's/^  "/  "::/' |
-    /usr/local/bin/hiera -c /etc/puppet/hiera.yaml --yaml /dev/stdin -a modules |
-    /usr/bin/jq '.[]' |
+# install forge modules
+hiera_array modules |
     /usr/bin/xargs -n1 echo /usr/local/bin/puppet module install --force |
     /bin/bash
 
 # run puppet
-/usr/local/bin/puppet apply /etc/puppet/manifests/site.pp
+/usr/local/bin/puppet apply /etc/puppet/hiera_classes.pp

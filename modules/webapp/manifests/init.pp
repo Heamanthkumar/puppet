@@ -1,16 +1,9 @@
 # define a simple static website
 class webapp (
-  $common_public = 'It is',
-  $common_secret = 'pitch black.',
-  $webapp_public = 'You are likely',
-  $webapp_secret = 'to be eaten by a grue.',
+  $public = 'It is pitch black.',
+  $secret = 'You are likely to be eaten by a grue.',
 ) {
-  $demo_text = [
-    $common_public,
-    $common_secret,
-    $webapp_public,
-    $webapp_secret,
-  ]
+  $demo_text = [$public, $secret]
 
   file { '/var/www/':
     ensure => 'directory',

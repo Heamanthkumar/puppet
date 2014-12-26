@@ -1,4 +1,4 @@
-/yaml/secrets
+/yaml/secret.yaml
 /modules/stdlib
 /modules/nginx
 /modules/concat

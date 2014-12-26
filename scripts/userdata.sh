@@ -1,14 +1,5 @@
 #!/bin/bash
 
-function hiera_array() {
-    key="$1"
-
-    /usr/local/bin/facter -p -j |
-        /bin/sed 's/^  "/  "::/' |
-        /usr/local/bin/hiera -c /etc/puppet/hiera.yaml --yaml /dev/stdin -a $key |
-        /usr/bin/jq '.[]'
-}
-
 # install dependencies
 /usr/bin/yum install git -y
 /usr/bin/yum install jq -y
@@ -27,9 +18,15 @@ function hiera_array() {
 /usr/bin/aws s3 cp s3://relud-demo-1/secrets.yaml /etc/puppet/secrets/secrets.yaml
 
 # install forge modules
-hiera_array modules |
-    /usr/bin/xargs -n1 echo /usr/local/bin/puppet module install --force |
-    /bin/bash
+
+## list the modules to install via hiera
+json_modules="$(/usr/local/bin/hiera -c /etc/puppet/hiera.yaml -a modules)"
+## convert modules from list of json strings, to newline separated strings
+modules="$(echo "$json_modules" | /usr/bin/jq '.[]')"
+## convert module strings to puppet module install commands
+commands="$(echo "$modules" | /usr/bin/sed 's,^,/usr/local/bin/puppet module install --force ,')"
+## execute commands
+echo "$commands" | /bin/bash
 
 # run puppet
 /usr/local/bin/puppet apply /etc/puppet/hiera_classes.pp

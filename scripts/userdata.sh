@@ -29,4 +29,4 @@ commands="$(echo "$modules" | /usr/bin/sed 's,^,/usr/local/bin/puppet module ins
 echo "$commands" | /bin/bash
 
 # run puppet
-/usr/local/bin/puppet apply /etc/puppet/site.pp
+/usr/local/bin/puppet apply -e "include hiera_array('classes')"

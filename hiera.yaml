@@ -5,7 +5,5 @@
 :yaml:
   :datadir: '/etc/puppet/yaml'
 :hierarchy:
-- 'secrets/%{::type}'
-- 'secrets/common'
-- '%{::type}'
-- 'common'
+- 'secret'
+- 'public'

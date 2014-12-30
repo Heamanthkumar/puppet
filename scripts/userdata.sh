@@ -20,7 +20,7 @@ modules="$(echo "$json_modules" | /usr/bin/jq -r '.[]')"
 ## convert module strings to puppet module install commands
 commands="$(echo "$modules" | /bin/sed 's,^,/usr/local/bin/puppet module install --force ,')"
 ## execute commands
-echo "$commands" | /bin/bash
+eval "$commands"
 
 # run puppet
 /usr/local/bin/puppet apply -e "include hiera_array('classes')"

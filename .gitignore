@@ -1,6 +1,3 @@
-/yaml/secret.yaml
 /modules/stdlib
 /modules/nginx
 /modules/concat
-*.swo
-*.swp

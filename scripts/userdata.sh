@@ -14,17 +14,16 @@
 /usr/bin/git clone https://github.com/relud/puppet-demo /etc/puppet
 
 # install secrets
-/bin/mkdir -p /etc/puppet/yaml/secrets
-/usr/bin/aws s3 cp s3://relud-demo-1/secrets.yaml /etc/puppet/secrets/secrets.yaml
+/usr/bin/aws s3 cp s3://BUCKET_NAME/secret.yaml /etc/puppet/yaml/secret.yaml
 
 # install forge modules
 
 ## list the modules to install via hiera
 json_modules="$(/usr/local/bin/hiera -c /etc/puppet/hiera.yaml -a modules)"
 ## convert modules from list of json strings, to newline separated strings
-modules="$(echo "$json_modules" | /usr/bin/jq '.[]')"
+modules="$(echo "$json_modules" | /usr/bin/jq -r '.[]')"
 ## convert module strings to puppet module install commands
-commands="$(echo "$modules" | /usr/bin/sed 's,^,/usr/local/bin/puppet module install --force ,')"
+commands="$(echo "$modules" | /bin/sed 's,^,/usr/local/bin/puppet module install --force ,')"
 ## execute commands
 echo "$commands" | /bin/bash
 

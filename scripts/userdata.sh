@@ -5,10 +5,6 @@
 /usr/bin/yum install jq -y
 /usr/bin/gem2.0 install puppet -v '~> 3.7' --no-ri --no-rdoc
 
-# classify this node as a webapp
-/bin/mkdir -p /etc/facter/facts.d
-/bin/echo 'type=webapp' > /etc/facter/facts.d/classify.txt
-
 # install git repo
 /usr/bin/git clone https://github.com/relud/puppet-demo /etc/puppet
 

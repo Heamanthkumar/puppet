@@ -3,7 +3,9 @@ class webapp (
   $public = 'It is pitch black.',
   $secret = 'You are likely to be eaten by a grue.',
 ) {
-  $demo_text = [$public, $secret]
+  $text = join([$public, $secret], ' ')
+  $webpage =
+    "<!doctype html><html><head><title>Demo</title><body>${text}</body></html>"
 
   file { '/var/www/':
     ensure => 'directory',
@@ -14,7 +16,7 @@ class webapp (
 
   file { '/var/www/index.html':
     ensure  => 'file',
-    content => template('webapp/index.html.erb'),
+    content => $webpage,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',

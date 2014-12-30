@@ -4,7 +4,6 @@
 /usr/bin/yum install git -y
 /usr/bin/yum install jq -y
 /usr/bin/gem2.0 install puppet -v '~> 3.7' --no-ri --no-rdoc
-/usr/bin/gem2.0 install hiera --no-ri --no-rdoc
 
 # classify this node as a webapp
 /bin/mkdir -p /etc/facter/facts.d

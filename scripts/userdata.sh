@@ -5,6 +5,10 @@
 /usr/bin/yum install jq -y
 /usr/bin/gem2.0 install puppet -v '~> 3.7' --no-ri --no-rdoc
 
+# classfiy node
+mkdir -p /etc/facter/facts.d/
+echo 'role=public' > /etc/facter/facts.d/fact.txt
+
 # install git repo
 /usr/bin/git clone https://github.com/relud/puppet-demo /etc/puppet
 
@@ -14,7 +18,7 @@
 # install forge modules
 
 ## list the modules to install via hiera
-json_modules="$(/usr/local/bin/hiera -c /etc/puppet/hiera.yaml -a modules)"
+json_modules="$(/usr/local/bin/hiera -c /etc/puppet/hiera.yaml -a modules '::role=public')"
 ## convert modules from list of json strings, to newline separated strings
 modules="$(echo "$json_modules" | /usr/bin/jq -r '.[]')"
 ## convert module strings to puppet module install commands

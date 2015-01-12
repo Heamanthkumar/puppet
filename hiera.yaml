@@ -6,4 +6,4 @@
   :datadir: '/etc/puppet/yaml'
 :hierarchy:
 - 'secret'
-- 'public'
+- '%{::role}'

@@ -9,7 +9,7 @@
 /usr/bin/git clone https://github.com/relud/puppet-demo /etc/puppet
 
 # install secrets
-/usr/bin/aws s3 cp s3://BUCKET_NAME/secret.yaml /etc/puppet/yaml/secret.yaml
+/usr/bin/aws s3 cp s3://relud-puppet-demo/secret.yaml /etc/puppet/yaml/secret.yaml
 
 # install forge modules
 
